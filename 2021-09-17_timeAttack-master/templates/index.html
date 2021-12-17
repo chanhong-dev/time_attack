@@ -1,0 +1,116 @@
+<!Doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+    <title>스파르타코딩클럽 | 나홀로 메모장</title>
+
+    <!-- style -->
+    <style type="text/css">
+        * {
+            font-family: "Stylish", sans-serif;
+        }
+
+        .wrap {
+            width: 900px;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .comment {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+
+        function openGroup() {
+            codeGroups()
+        }
+
+        function makeReview() {
+            $.ajax({
+                type: "POST",
+                url: "/codess",
+                data: {sample_give: '샘플데이터'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function codeGroups() {
+            $.ajax({
+                type: "GET",
+                url: "/codes",
+                data: {},
+                success: function (response) {
+                    code_group = response['groups']
+                    for (let i = 0; i < code_group.length; i++) {
+                        let group1 = code_group[i]
+                        let group2 = code_group[i]
+                    }
+                    let temp_html =
+                        `<div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Default radio
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Default checked radio
+                                </label>
+                            </div>`
+                    $('#radio-group').append(temp_html)
+                    alert(response['groups']);
+                }
+            })
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="wrap">
+    <div class="jumbotron">
+        <h1 class="display-4">주식 종목 추천!!</h1>
+        <p class="lead">원하시는 종목을 추천합니다</p>
+        <hr class="my-4">
+        <div id=radio-group>
+
+        </div>
+
+        <p class="lead">
+            <button onclick="openGroup()" id="btn-post-box" type="button" class="btn btn-primary">추천 시작
+            </button>
+        </p>
+    </div>
+</div>
+</body>
+
+</html>
